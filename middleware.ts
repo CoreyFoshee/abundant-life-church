@@ -1,0 +1,22 @@
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+
+export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  const redirects: Record<string, string> = {
+    "/index.html": "/",
+    "/aboutus.html": "/about",
+    "/contactus.html": "/contact",
+  };
+
+  if (redirects[pathname]) {
+    return NextResponse.redirect(new URL(redirects[pathname], request.url), 301);
+  }
+
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ["/index.html", "/aboutus.html", "/contactus.html"],
+};
