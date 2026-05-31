@@ -1,14 +1,15 @@
-import type { Metadata } from "next";
 import { EventCard } from "@/components/EventCard";
 import { EventsEmptyState } from "@/components/EventsEmptyState";
 import { PageHero } from "@/components/PageHero";
-import { church } from "@/lib/constants";
 import { getEvents } from "@/lib/events";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Events",
-  description: `Upcoming events at ${church.name} in Harvey, Louisiana.`,
-};
+  description:
+    "See upcoming events, services, and gatherings at The Church of Abundant Life in Harvey, Louisiana and the Greater New Orleans area.",
+  path: "/events",
+});
 
 export default async function EventsPage() {
   const events = await getEvents();

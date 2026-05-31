@@ -1,15 +1,17 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/Button";
 import { PageHero } from "@/components/PageHero";
 import { church, pastors } from "@/lib/constants";
 import { getServiceTimes } from "@/lib/services";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Visit Us",
-  description: `Plan your visit to ${church.name}. Service times, location, and meet our pastors in Harvey, Louisiana.`,
-};
+  description:
+    "Plan your visit to The Church of Abundant Life in Harvey, Louisiana. View Sunday service times, get directions to 2301 Par 3 Dr., and learn what to expect.",
+  path: "/visit",
+});
 
 export default async function VisitPage() {
   const { intro, services } = await getServiceTimes();

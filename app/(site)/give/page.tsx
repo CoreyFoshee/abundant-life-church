@@ -1,12 +1,14 @@
-import type { Metadata } from "next";
 import { Button } from "@/components/Button";
 import { PageHero } from "@/components/PageHero";
 import { church } from "@/lib/constants";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Give",
-  description: `Give your tithes and offerings to ${church.name} online or by text.`,
-};
+  description:
+    "Give your tithes and offerings to The Church of Abundant Life in Harvey, LA through secure online giving or text-to-give.",
+  path: "/give",
+});
 
 export default function GivePage() {
   return (

@@ -113,8 +113,19 @@ export function Footer() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="mx-auto max-w-7xl px-4 py-6 text-center text-sm text-white/50 sm:px-6 lg:px-8">
-          Copyright &copy; {year} {church.name}
+        <div className="mx-auto max-w-7xl space-y-2 px-4 py-6 text-center text-sm text-white/50 sm:px-6 lg:px-8">
+          <p>Copyright &copy; {year} {church.name}</p>
+          <p>
+            Designed by{" "}
+            <a
+              href="https://cfdesign.studio"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/70 transition-colors hover:text-brand"
+            >
+              CF Design Studio
+            </a>
+          </p>
         </div>
       </div>
     </footer>

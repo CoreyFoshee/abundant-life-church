@@ -1,12 +1,14 @@
-import type { Metadata } from "next";
 import { Button } from "@/components/Button";
 import { PageHero } from "@/components/PageHero";
 import { church } from "@/lib/constants";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Contact Us",
-  description: `Contact ${church.name} in Harvey, LA. Office hours, address, phone, and email.`,
-};
+  description:
+    "Contact The Church of Abundant Life at 2301 Par 3 Dr., Harvey, LA 70058. Call (504) 367-4000, email us, or view office hours and directions.",
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

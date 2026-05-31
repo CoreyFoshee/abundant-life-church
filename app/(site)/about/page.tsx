@@ -1,12 +1,14 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import { PageHero } from "@/components/PageHero";
 import { church, pastors } from "@/lib/constants";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "About Us",
-  description: `Learn about the leadership and vision of ${church.name} in Harvey, Louisiana.`,
-};
+  description:
+    "Meet Pastor Jonas Robertson and Pastor Bill Fitzgerald. Learn about the leadership, vision, and heart of The Church of Abundant Life in Harvey, Louisiana.",
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (
