@@ -45,9 +45,6 @@ export function Hero({ services }: HeroProps) {
           <Button href={church.social.facebook} external variant="secondary">
             Watch Online
           </Button>
-          <Button href="/give" variant="outline">
-            Give
-          </Button>
         </div>
       </div>
     </section>
