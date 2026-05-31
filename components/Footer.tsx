@@ -73,14 +73,9 @@ export function Footer() {
               </li>
             ))}
             <li>
-              <a
-                href={church.giving.tithely}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/80 hover:text-brand"
-              >
-                Give Online
-              </a>
+              <Link href="/visit" className="text-white/80 hover:text-brand">
+                Visit Us
+              </Link>
             </li>
             <li>
               <a

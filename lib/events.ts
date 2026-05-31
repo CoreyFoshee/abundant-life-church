@@ -1,26 +1,37 @@
-import { placeholderEvents } from "@/lib/data/events";
 import type { Event } from "@/lib/types/event";
+import { resolveUpcomingEvents } from "@/lib/recurringEvents";
+import { isSanityConfigured } from "@/sanity/env";
+import { getSanityClient } from "@/sanity/lib/client";
+import { upcomingEventsQuery } from "@/sanity/lib/queries";
 
-function sortByDate(events: Event[]): Event[] {
-  return [...events].sort(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+async function getSanityEvents(): Promise<Event[]> {
+  const client = getSanityClient();
+  if (!client) {
+    return [];
+  }
+
+  const events = await client.fetch<Event[]>(
+    upcomingEventsQuery,
+    {},
+    { next: { tags: ["events"], revalidate: 60 } }
   );
-}
 
-function isUpcoming(event: Event): boolean {
-  return new Date(event.date) >= new Date();
+  return resolveUpcomingEvents(events);
 }
 
 export async function getEvents(): Promise<Event[]> {
-  return sortByDate(placeholderEvents.filter(isUpcoming));
-}
+  if (!isSanityConfigured) {
+    return [];
+  }
 
-export async function getFeaturedEvents(): Promise<Event[]> {
-  const events = await getEvents();
-  return events.filter((event) => event.featured).slice(0, 6);
+  try {
+    return await getSanityEvents();
+  } catch {
+    return [];
+  }
 }
 
 export async function getEventBySlug(slug: string): Promise<Event | null> {
-  const event = placeholderEvents.find((item) => item.slug === slug);
-  return event ?? null;
+  const events = await getEvents();
+  return events.find((event) => event.slug === slug) ?? null;
 }

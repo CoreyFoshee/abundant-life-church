@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { EventCard } from "@/components/EventCard";
+import { EventsEmptyState } from "@/components/EventsEmptyState";
 import { PageHero } from "@/components/PageHero";
 import { church } from "@/lib/constants";
 import { getEvents } from "@/lib/events";
@@ -16,7 +17,11 @@ export default async function EventsPage() {
     <>
       <PageHero
         title="Events"
-        subtitle="Stay connected with what's happening at Abundant Life."
+        subtitle={
+          events.length > 0
+            ? "Stay connected with what's happening at Abundant Life."
+            : "We'd love to see you this Sunday. Check back here for special events and gatherings."
+        }
       />
 
       <section className="py-16 sm:py-24">
@@ -28,9 +33,7 @@ export default async function EventsPage() {
               ))}
             </div>
           ) : (
-            <p className="rounded-2xl border border-dashed border-neutral-300 bg-neutral-50 px-6 py-16 text-center text-neutral-600">
-              No upcoming events — check back soon.
-            </p>
+            <EventsEmptyState />
           )}
         </div>
       </section>

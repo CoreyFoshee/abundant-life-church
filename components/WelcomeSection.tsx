@@ -39,7 +39,7 @@ export function WelcomeSection() {
             </p>
           </div>
           <div className="mt-8">
-            <Button href="/contact" variant="primary">
+            <Button href="/visit" variant="primary">
               Plan a Visit
             </Button>
           </div>

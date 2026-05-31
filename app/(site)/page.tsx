@@ -7,17 +7,20 @@ import { ServiceTimes } from "@/components/ServiceTimes";
 import { StraightTalk } from "@/components/StraightTalk";
 import { VerseOfDay } from "@/components/VerseOfDay";
 import { WelcomeSection } from "@/components/WelcomeSection";
+import { getServiceTimes } from "@/lib/services";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const { services } = await getServiceTimes();
+
   return (
     <>
-      <Hero />
+      <Hero services={services} />
       <QuickActions />
       <DeclarationsMarquee />
       <WelcomeSection />
       <EventsSection />
       <StraightTalk />
-      <ServiceTimes />
+      <ServiceTimes services={services} />
       <VerseOfDay />
       <GivingSection />
     </>

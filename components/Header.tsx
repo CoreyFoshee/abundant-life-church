@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { GiveButton } from "@/components/Button";
+import { VisitButton } from "@/components/Button";
 import { church } from "@/lib/constants";
 
 export function Header() {
@@ -64,11 +64,11 @@ export function Header() {
               </Link>
             );
           })}
-          <GiveButton className="ml-2 !min-h-10 !px-5 !py-2" />
+          <VisitButton className="ml-2 !min-h-10 !px-5 !py-2" />
         </nav>
 
         <div className="flex items-center gap-3 lg:hidden">
-          <GiveButton className="!min-h-10 !px-4 !py-2 !text-xs" />
+          <VisitButton className="!min-h-10 !px-4 !py-2 !text-xs" />
           <button
             type="button"
             className="inline-flex h-11 w-11 items-center justify-center rounded-md text-white"

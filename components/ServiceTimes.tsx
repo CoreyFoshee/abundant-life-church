@@ -1,6 +1,10 @@
-import { church } from "@/lib/constants";
+import type { ServiceTime } from "@/lib/types/service";
 
-export function ServiceTimes() {
+type ServiceTimesProps = {
+  services: ServiceTime[];
+};
+
+export function ServiceTimes({ services }: ServiceTimesProps) {
   return (
     <section className="bg-brand-light py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -14,7 +18,7 @@ export function ServiceTimes() {
         </div>
 
         <div className="mx-auto mt-10 grid max-w-4xl gap-6 sm:grid-cols-2">
-          {church.services.map((service) => (
+          {services.map((service) => (
             <div
               key={service.name}
               className="rounded-2xl bg-white p-8 text-center shadow-sm"

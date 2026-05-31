@@ -1,3 +1,5 @@
+import { defaultServiceTimes } from "@/lib/data/serviceTimes";
+
 export const church = {
   name: "The Church of Abundant Life",
   shortName: "Abundant Life",
@@ -30,18 +32,7 @@ export const church = {
     textNumber: "833-590-0603",
     textKeyword: "GIVE",
   },
-  services: [
-    {
-      name: "Sunday Morning Class",
-      location: "180 Center Sanctuary",
-      time: "9:00 AM",
-    },
-    {
-      name: "Sunday Worship",
-      location: "Main Sanctuary",
-      time: "10:00 AM",
-    },
-  ],
+  services: defaultServiceTimes.services,
   declarations: [
     "No weapon formed against you shall prosper",
     "By His stripes you are healed",
@@ -52,6 +43,7 @@ export const church = {
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
     { href: "/events", label: "Events" },
+    { href: "/give", label: "Give" },
     { href: "/contact", label: "Contact" },
   ],
 } as const;

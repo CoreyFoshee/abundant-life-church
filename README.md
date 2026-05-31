@@ -15,60 +15,50 @@ Open [http://localhost:3000](http://localhost:3000).
 
 | Route | Description |
 |-------|-------------|
-| `/` | Homepage with hero, events, Straight Talk, service times, verse of the day, giving |
-| `/about` | Pastor bios (Jonas & Ruthie Robertson, Bill & Dianna Fitzgerald) |
-| `/contact` | Address, phone, email, office hours, Google Map |
-| `/events` | Upcoming events listing |
+| `/` | Homepage |
+| `/about` | Pastor bios |
+| `/visit` | Service times, map, pastors |
+| `/give` | Online and text giving |
+| `/contact` | Contact info and map |
+| `/events` | Upcoming events |
+| `/studio` | Sanity CMS (staff only) |
 
-## Managing Events (Placeholder Data)
+## Sanity CMS (minimal — 2 things to edit)
 
-Events are currently stored in `lib/data/events.ts`. To add or edit events before Sanity is connected:
+The studio only exposes what church staff need to change:
 
-1. Open `lib/data/events.ts`
-2. Add or update an object in the `placeholderEvents` array
-3. Set `featured: true` to show an event on the homepage (up to 6 featured events)
-4. Use ISO date strings for `date` and optional `endDate`
+1. **Service Times** — one page to update worship/class times
+2. **Upcoming Events** — add events with a start and end date/time. All active events appear on the homepage and `/events`. Events are removed automatically after the end date/time.
 
-Example:
+### Setup (one time)
 
-```typescript
-{
-  id: "6",
-  title: "Youth Night",
-  slug: "youth-night",
-  date: "2026-06-15T18:00:00.000Z",
-  location: "180 Center Sanctuary",
-  description: "A night of worship and fellowship for young people.",
-  featured: true,
-}
+1. Create a free project at [sanity.io/manage](https://www.sanity.io/manage)
+2. Copy `.env.local.example` to `.env.local` and add your project ID:
+
+```bash
+NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
+NEXT_PUBLIC_SANITY_DATASET=production
 ```
 
-**Later:** When Sanity CMS is added, only `lib/events.ts` needs to change — UI components stay the same.
+3. Restart the dev server
+4. Open [http://localhost:3000/studio](http://localhost:3000/studio) and sign in
+5. Open **Service Times** and add your Sunday services
+6. Add events under **Upcoming Events** and publish each one
+
+Until Sanity is configured, the site uses built-in default service times and sample events.
+
+### Staff workflow
+
+- Go to `yoursite.com/studio`
+- Edit **Service Times** or add/publish an **Event**
+- Changes appear on the live site within about a minute
 
 ## Deploy to Vercel
 
-1. Push this project to a Git repository
-2. Import the repo at [vercel.com/new](https://vercel.com/new)
-3. Deploy with default Next.js settings (no environment variables required)
-4. Point `abundantlifeharvey.org` DNS to Vercel when ready to go live
-
-Or deploy from CLI:
-
-```bash
-npx vercel
-```
-
-## Legacy URL Redirects
-
-These old paths redirect automatically:
-
-- `/index.html` → `/`
-- `/aboutus.html` → `/about`
-- `/contactus.html` → `/contact`
+Add the same Sanity env vars in Vercel project settings, then deploy.
 
 ## Tech Stack
 
-- Next.js 15 (App Router)
-- TypeScript
-- Tailwind CSS v4
-- Placeholder event data (Sanity CMS planned for later)
+- Next.js 15, TypeScript, Tailwind CSS v4
+- Sanity CMS (events + service times only)
+- Bible Gateway (verse of the day)

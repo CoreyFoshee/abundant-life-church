@@ -3,42 +3,43 @@
 import { useEffect, useState } from "react";
 
 type VerseData = {
-  item: string;
   text: string;
   reference: string;
   version_id: string;
+  permalink?: string;
 };
-
-declare global {
-  interface Window {
-    BG?: {
-      votdWriteCallback: (data: { data: VerseData }) => void;
-    };
-  }
-}
 
 export function VerseOfDay() {
   const [verse, setVerse] = useState<VerseData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    window.BG = {
-      votdWriteCallback: (data) => {
-        setVerse(data.data);
-        setLoading(false);
-      },
-    };
+    let cancelled = false;
 
-    const script = document.createElement("script");
-    script.src =
-      "https://www.biblegateway.com/votd/get/?format=json&version=NKJV&callback=BG.votdWriteCallback";
-    script.async = true;
-    document.body.appendChild(script);
+    async function loadVerse() {
+      try {
+        const response = await fetch("/api/verse-of-day");
+        if (!response.ok) throw new Error("Failed to fetch");
+
+        const data = (await response.json()) as VerseData;
+        if (!cancelled) {
+          setVerse(data);
+        }
+      } catch {
+        if (!cancelled) {
+          setVerse(null);
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadVerse();
 
     return () => {
-      if (script.parentNode) {
-        script.parentNode.removeChild(script);
-      }
+      cancelled = true;
     };
   }, []);
 
@@ -62,7 +63,20 @@ export function VerseOfDay() {
                 dangerouslySetInnerHTML={{ __html: verse.text }}
               />
               <cite className="mt-4 block text-sm font-semibold not-italic text-brand">
-                {verse.reference} ({verse.version_id})
+                {verse.permalink ? (
+                  <a
+                    href={verse.permalink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
+                    {verse.reference} ({verse.version_id})
+                  </a>
+                ) : (
+                  <>
+                    {verse.reference} ({verse.version_id})
+                  </>
+                )}
               </cite>
             </>
           ) : (

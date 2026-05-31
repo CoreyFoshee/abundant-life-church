@@ -18,7 +18,7 @@ export function GivingSection() {
           {church.giving.textNumber}.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <Button href={church.giving.tithely} external variant="primary">
+          <Button href="/give" variant="primary">
             Give Online
           </Button>
           <Button href={church.social.facebook} external variant="outline">

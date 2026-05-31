@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { church } from "@/lib/constants";
 
 type ButtonProps = {
   href: string;
@@ -47,15 +46,10 @@ export function Button({
   );
 }
 
-export function GiveButton({ className = "" }: { className?: string }) {
+export function VisitButton({ className = "" }: { className?: string }) {
   return (
-    <Button
-      href={church.giving.tithely}
-      external
-      variant="primary"
-      className={className}
-    >
-      Give
+    <Button href="/visit" variant="primary" className={className}>
+      Visit
     </Button>
   );
 }

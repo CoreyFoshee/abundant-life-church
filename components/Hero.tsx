@@ -1,8 +1,13 @@
 import Image from "next/image";
 import { Button } from "@/components/Button";
 import { church } from "@/lib/constants";
+import type { ServiceTime } from "@/lib/types/service";
 
-export function Hero() {
+type HeroProps = {
+  services: ServiceTime[];
+};
+
+export function Hero({ services }: HeroProps) {
   return (
     <section className="relative flex min-h-[85vh] items-end overflow-hidden pt-24">
       <Image
@@ -26,7 +31,7 @@ export function Hero() {
           {church.tagline}
         </p>
         <div className="mt-4 space-y-1 text-base text-white/80">
-          {church.services.map((service) => (
+          {services.map((service) => (
             <p key={service.name}>
               {service.name}: {service.time} — {service.location}
             </p>
@@ -34,13 +39,13 @@ export function Hero() {
         </div>
 
         <div className="mt-8 flex flex-wrap gap-3">
-          <Button href="/contact" variant="primary">
+          <Button href="/visit" variant="primary">
             Plan a Visit
           </Button>
           <Button href={church.social.facebook} external variant="secondary">
             Watch Online
           </Button>
-          <Button href={church.giving.tithely} external variant="outline">
+          <Button href="/give" variant="outline">
             Give
           </Button>
         </div>

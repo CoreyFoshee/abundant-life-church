@@ -1,9 +1,13 @@
 import Link from "next/link";
 import { EventCard } from "@/components/EventCard";
-import { getFeaturedEvents } from "@/lib/events";
+import { getEvents } from "@/lib/events";
 
 export async function EventsSection() {
-  const events = await getFeaturedEvents();
+  const events = await getEvents();
+
+  if (events.length === 0) {
+    return null;
+  }
 
   return (
     <section className="bg-neutral-50 py-16 sm:py-24">
@@ -25,17 +29,11 @@ export async function EventsSection() {
           </Link>
         </div>
 
-        {events.length > 0 ? (
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {events.map((event) => (
-              <EventCard key={event.id} event={event} />
-            ))}
-          </div>
-        ) : (
-          <p className="mt-10 rounded-2xl border border-dashed border-neutral-300 bg-white px-6 py-12 text-center text-neutral-600">
-            No upcoming events — check back soon.
-          </p>
-        )}
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {events.map((event) => (
+            <EventCard key={event.id} event={event} />
+          ))}
+        </div>
       </div>
     </section>
   );

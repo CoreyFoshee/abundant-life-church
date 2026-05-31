@@ -1,18 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
+import {
+  formatEventDateRange,
+  formatEventDateTimeAttribute,
+} from "@/lib/formatEventDate";
 import type { Event } from "@/lib/types/event";
 
-function formatEventDate(dateString: string): string {
-  return new Intl.DateTimeFormat("en-US", {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-  }).format(new Date(dateString));
-}
-
 export function EventCard({ event }: { event: Event }) {
+  const dateLabel = formatEventDateRange({
+    start: event.date,
+    end: event.endDate,
+  });
+
   const content = (
     <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm transition-shadow hover:shadow-md">
       {event.image ? (
@@ -44,11 +43,16 @@ export function EventCard({ event }: { event: Event }) {
         </div>
       )}
       <div className="flex flex-1 flex-col p-5">
+        {event.recurrenceLabel ? (
+          <p className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
+            {event.recurrenceLabel}
+          </p>
+        ) : null}
         <time
-          dateTime={event.date}
+          dateTime={formatEventDateTimeAttribute(event.date, event.endDate)}
           className="text-sm font-semibold text-brand"
         >
-          {formatEventDate(event.date)}
+          {dateLabel}
         </time>
         <h3 className="mt-2 text-lg font-bold text-neutral-900">{event.title}</h3>
         <p className="mt-1 text-sm text-neutral-500">{event.location}</p>
